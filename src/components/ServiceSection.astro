@@ -1,0 +1,82 @@
+---
+import { Image } from "astro:assets";
+// Si quieres fotos en las tarjetas, impórtalas y asígnalas en "imagen":
+// import imgReformas from "../assets/servicios/reformas.jpg";
+
+interface Servicio {
+  titulo: string;
+  descripcion: string;
+  icono: string;
+  imagen?: ImageMetadata;
+}
+
+const servicios: Servicio[] = [
+  {
+    titulo: "Reformas integrales",
+    descripcion:
+      "Diseño, planificación y ejecución completa de viviendas y locales comerciales, adaptándonos a tus necesidades con materiales de máxima calidad.",
+    icono: `<path d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-6h4v6" />`,
+    // imagen: imgReformas,
+  },
+  {
+    titulo: "Rehabilitación de fachadas",
+    descripcion:
+      "Protegemos, aislamos y revalorizamos la imagen exterior de cualquier edificio con soluciones duraderas y eficientes.",
+    icono: `<path d="M5 21V4h9v17M14 9h5v12M3 21h18M8 8h2M8 12h2M8 16h2" />`,
+  },
+  {
+    titulo: "Alquiler y montaje de andamios",
+    descripcion:
+      "Suministro y montaje de estructuras homologadas bajo estrictas medidas de seguridad técnica para todo tipo de obras.",
+    icono: `<path d="M5 3v18M12 3v18M19 3v18M5 7h14M5 12h14M5 17h14M5 12l7-5M12 17l7-5" />`,
+  },
+];
+---
+
+<section id="servicios" class="w-full bg-[#1c1c1c] px-6 py-16 text-white sm:px-8 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <!-- Encabezado -->
+    <div class="grid gap-6 md:grid-cols-2 md:items-end md:gap-16">
+      <div>
+        <p class="text-sm font-medium text-[#EF5F17]">Construimos confianza. Entregamos excelencia.</p>
+        <h2 class="mt-4 text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-4xl lg:text-5xl">
+          Servicios de reformas y fachadas
+        </h2>
+      </div>
+      <p class="max-w-xl text-base leading-relaxed text-white/70 md:justify-self-end">
+        Abordamos cada proyecto con absoluta transparencia, asesoramiento personalizado y una ejecución técnica rigurosa.
+      </p>
+    </div>
+
+    <!-- Tarjetas -->
+    <div class="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-3">
+      {servicios.map((s) => (
+        <article class="flex flex-col border border-white/10 bg-white/[0.04]">
+          {s.imagen && (
+            <Image src={s.imagen} alt={s.titulo} class="aspect-[16/10] w-full object-cover" />
+          )}
+
+          <div class="flex flex-1 flex-col gap-3 p-6 sm:p-8">
+            {!s.imagen && (
+              <span class="mb-3 flex h-12 w-12 items-center justify-center border border-[#EF5F17]/60 text-[#EF5F17]">
+                <svg class="h-6 w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <Fragment set:html={s.icono} />
+                </svg>
+              </span>
+            )}
+
+            <h3 class="text-xl font-medium tracking-tight">{s.titulo}</h3>
+            <p class="text-base leading-relaxed text-white/70">{s.descripcion}</p>
+
+            <a
+              href="/#solicitar-presupuesto"
+              class="mt-auto inline-block self-start pt-4 text-sm font-medium text-[#EF5F17] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              Pedir presupuesto ↗
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import Photo1 from '../assets/photo1.jpeg';
+import Photo2 from '../assets/photo2.jpeg';
+import Photo3 from '../assets/photo3.jpeg';
+
+// Array de imágenes para iterar limpiamente
+const photos = [
+  { src: Photo1, alt: "Imagen 1" },
+  { src: Photo2, alt: "Imagen 2" },
+  { src: Photo3, alt: "Imagen 3" },
+];
+---
+
+<div id="animation-carousel" class="relative w-full" data-carousel="static">
+  <div class="relative h-70 overflow-hidden rounded-base md:h-96">
+    {
+      photos.map((photo, index) => (
+        <div
+          class={`carousel-item absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
+            index === 0 ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+          }`}
+          data-carousel-item
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            widths={[640, 1024, 1280]}
+            sizes="(max-width: 768px) 100vw, 1280px"
+            loading={index === 0 ? "eager" : "lazy"}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function setupCarousel() {
+    const carousel = document.getElementById('animation-carousel');
+    if (!carousel) return;
+
+    const items = carousel.querySelectorAll<HTMLElement>('[data-carousel-item]');
+    if (!items.length) return;
+
+    let currentIndex = 0;
+    let timer: number;
+
+    function showSlide(index: number) {
+      items[currentIndex].classList.remove('opacity-100', 'z-10');
+      items[currentIndex].classList.add('opacity-0', 'z-0', 'pointer-events-none');
+
+      items[index].classList.remove('opacity-0', 'z-0', 'pointer-events-none');
+      items[index].classList.add('opacity-100', 'z-10');
+
+      currentIndex = index;
+    }
+
+    const nextSlide = () => showSlide((currentIndex + 1) % items.length);
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      timer = window.setInterval(nextSlide, 2500);
+    };
+
+    const stopAutoplay = () => clearInterval(timer);
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    startAutoplay();
+  }
+  setupCarousel();
+  document.addEventListener('astro:page-load', setupCarousel);
+</script>

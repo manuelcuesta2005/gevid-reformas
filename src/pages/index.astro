@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import CarouselHomeAstroComponent from '../components/CarouselHome.astro';
+import ContactSection from '../components/ContactSection.astro'
+import ServiceSection from '../components/ServiceSection.astro'
+import ProcessSection from '../components/ProcessSection.astro'
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const stats = [
+  { valor: "20+", etiqueta: "años de experiencia" },
+  { valor: "150+", etiqueta: "proyectos terminados" },
+  { valor: "90%", etiqueta: "cumplimiento de plazos" },
+  { valor: "100%", etiqueta: "confianza", destacado: true },
+];
 ---
 
 <Layout>
-	<Welcome />
+	<section>
+		<CarouselHomeAstroComponent />
+		<hr class="border-2 border-[#EF5F17]">
+	</section>
+	<section class="bg-[#1c1c1c]">
+		<ServiceSection />
+		<div class="w-full bg-white px-6 py-10 text-[#1c1c1c] sm:px-8 md:py-14">
+			<ul class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-x-0">
+				{stats.map((s) => (
+				<li class="lg:border-l lg:border-[#1c1c1c]/15 lg:pl-8 lg:first:border-l-0 lg:first:pl-0">
+					<p class:list={["text-4xl font-bold tracking-tight sm:text-5xl", s.destacado && "text-[#EF5F17]"]}>
+					{s.valor}
+					</p>
+					<p class="mt-1 text-sm text-[#1c1c1c]/70 sm:text-base">{s.etiqueta}</p>
+				</li>
+				))}
+			</ul>
+		</div>
+		<ProcessSection />
+		<div class="w-full bg-[#141414] p-4">
+			<ContactSection />
+		</div>
+	</section>
 </Layout>

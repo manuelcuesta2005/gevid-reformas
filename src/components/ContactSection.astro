@@ -1,0 +1,58 @@
+---
+import FormContact from "./FormContact.astro"; // ajusta la ruta a tu proyecto
+
+// Sustituye estos datos por los reales
+const contacto = {
+  telefono: { texto: "Pendiente de completar", href: "" },
+  email: { texto: "Pendiente de completar", href: "" },
+  ubicacion: "Pendiente de completar",
+};
+---
+
+<section id="contacto" class="w-full bg-[#1c1c1c] px-6 py-16 text-white sm:px-8 md:py-24">
+  <div class="mx-auto grid max-w-6xl gap-12 border-t border-[#EF5F17]/60 pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)] lg:gap-16 lg:pt-16">
+    <!-- Texto -->
+    <div class="max-w-xl">
+      <p class="text-sm font-medium text-[#EF5F17]">Hablemos de tu proyecto</p>
+
+      <h2 class="mt-4 text-4xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+        Toda gran reforma empieza con una conversación.
+      </h2>
+
+      <p class="mt-6 text-base leading-relaxed text-white/70">
+        Cuéntanos qué necesitas y te responderemos con una propuesta clara.
+        Solicita tu presupuesto directamente, sin registrarte en ningún área de clientes.
+      </p>
+
+      <a href="#solicitar-presupuesto" class="mt-6 inline-block text-sm font-medium text-[#EF5F17] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+        Contactar con Gevid ↗
+      </a>
+
+      <dl class="mt-10 grid gap-3 text-sm">
+        <div class="flex flex-wrap gap-x-3">
+          <dt class="w-24 text-white/50">Teléfono</dt>
+          <dd>
+            {contacto.telefono.href
+              ? <a href={contacto.telefono.href} class="hover:text-[#EF5F17]">{contacto.telefono.texto}</a>
+              : contacto.telefono.texto}
+          </dd>
+        </div>
+        <div class="flex flex-wrap gap-x-3">
+          <dt class="w-24 text-white/50">Correo</dt>
+          <dd>
+            {contacto.email.href
+              ? <a href={contacto.email.href} class="hover:text-[#EF5F17]">{contacto.email.texto}</a>
+              : contacto.email.texto}
+          </dd>
+        </div>
+        <div class="flex flex-wrap gap-x-3">
+          <dt class="w-24 text-white/50">Ubicación</dt>
+          <dd>{contacto.ubicacion}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Formulario -->
+    <FormContact />
+  </div>
+</section>

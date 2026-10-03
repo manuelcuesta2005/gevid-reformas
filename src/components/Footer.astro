@@ -1,0 +1,183 @@
+---
+import { Image } from "astro:assets";
+import IconGevid from "../assets/icon2-gevid.png";
+
+// ─── DATOS DE LA EMPRESA: rellena estos campos ───────────────────────────────
+const empresa = {
+  nombre: "Gevid",
+  razonSocial: "Gevid Reformas S.L.",
+  cif: "CIF pendiente de completar",
+  lema: "Construimos confianza. Entregamos excelencia.",
+  descripcion:
+    " Reformas integrales, rehabilitación de fachadas y alquiler y montaje de andamios, con propuestas detalladas y plazos claros.",
+  direccion: "C/d'iscle soler n'46, Cornellá de Llobregat",
+  telefono: "+34 000 000 000",
+  telefonoHref: "tel:+34000000000",
+  email: "correo@tudominio.es",
+  horario: "Lunes a viernes, de 8:00 a 18:00",
+  // Opcional: pega aquí el src del iframe de Google Maps
+  // (Google Maps > Compartir > Insertar un mapa). Si lo dejas vacío,
+  // el mapa se genera a partir de la dirección.
+  mapaEmbed: "",
+};
+
+const mapaSrc =
+  empresa.mapaEmbed ||
+  `https://www.google.com/maps?q=${encodeURIComponent(empresa.direccion)}&output=embed`;
+const comoLlegar = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(empresa.direccion)}`;
+
+const columnas = [
+  {
+    titulo: "Servicios",
+    enlaces: [
+      { texto: "Reformas integrales", href: "/#servicios" },
+      { texto: "Rehabilitación de fachadas", href: "/#servicios" },
+      { texto: "Alquiler y montaje de andamios", href: "/#servicios" },
+    ],
+  },
+  {
+    titulo: "Información",
+    enlaces: [
+      { texto: "Sobre la empresa", href: "/#empresa" },
+      { texto: "Contacto", href: "/#contacto" },
+      { texto: "Solicitar presupuesto", href: "/#solicitar-presupuesto" },
+    ],
+  },
+  {
+    titulo: "Legal",
+    enlaces: [
+      { texto: "Política de privacidad", href: "/politica-de-privacidad" },
+      { texto: "Aviso legal", href: "/aviso-legal" },
+      { texto: "Política de cookies", href: "/politica-de-cookies" },
+      { texto: "Términos y condiciones", href: "/terminos-y-condiciones" },
+    ],
+  },
+];
+
+const redes = [
+  {
+    nombre: "Instagram",
+    href: "#",
+    icono: `<svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>`,
+  },
+  {
+    nombre: "Facebook",
+    href: "#",
+    icono: `<svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/></svg>`,
+  },
+  {
+    nombre: "LinkedIn",
+    href: "#",
+    icono: `<svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/></svg>`,
+  },
+];
+
+const enlace =
+  "text-sm text-white/70 underline-offset-4 decoration-[#EF5F17] hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[#1c1c1c] text-white">
+  <div class="mx-auto w-full max-w-7xl px-6 sm:px-8">
+    <!-- Empresa + mapa -->
+    <div class="grid gap-12 border-t border-white/10 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
+      <div class="max-w-xl">
+        <Image src={IconGevid} alt={empresa.nombre} class="mb-6 w-10" />
+        <p class="text-2xl font-semibold leading-snug tracking-tight text-balance sm:text-3xl">
+          {empresa.lema}
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-white/70">
+          <strong class="font-medium text-white">{empresa.razonSocial}.</strong>
+          {empresa.descripcion}
+        </p>
+
+        <dl class="mt-8 grid gap-4 text-sm">
+          <div class="grid grid-cols-[6.5rem_1fr] gap-x-3">
+            <dt class="text-white/50">Dirección</dt>
+            <dd>{empresa.direccion}</dd>
+          </div>
+          <div class="grid grid-cols-[6.5rem_1fr] gap-x-3">
+            <dt class="text-white/50">Teléfono</dt>
+            <dd><a href={empresa.telefonoHref} class="hover:text-[#EF5F17]">{empresa.telefono}</a></dd>
+          </div>
+          <div class="grid grid-cols-[6.5rem_1fr] gap-x-3">
+            <dt class="text-white/50">Correo</dt>
+            <dd class="break-all"><a href={`mailto:${empresa.email}`} class="hover:text-[#EF5F17]">{empresa.email}</a></dd>
+          </div>
+          <div class="grid grid-cols-[6.5rem_1fr] gap-x-3">
+            <dt class="text-white/50">Horario</dt>
+            <dd>{empresa.horario}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="flex flex-col">
+        <div class="mapa relative min-h-[16rem] flex-1 overflow-hidden bg-white/5 aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto">
+          <iframe
+            title={`Ubicación de ${empresa.nombre} en Google Maps`}
+            src={mapaSrc}
+            class="absolute inset-0 h-full w-full border-0 [filter:grayscale(1)_invert(.92)_contrast(.9)]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <a
+          href={comoLlegar}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-3 inline-block self-start text-sm font-medium text-[#EF5F17] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        >
+          Cómo llegar ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Enlaces -->
+    <nav aria-label="Pie de página" class="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/10 py-12 sm:grid-cols-3">
+      {columnas.map((col) => (
+        <div>
+          <h2 class="mb-5 text-sm font-semibold text-[#EF5F17]">{col.titulo}</h2>
+          <ul class="grid gap-3">
+            {col.enlaces.map((e) => (
+              <li><a href={e.href} class={enlace}>{e.texto}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <!-- Barra inferior -->
+    <div class="flex flex-col gap-5 border-t border-white/10 py-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
+      <p>
+        © {year} {empresa.razonSocial} Todos los derechos reservados.
+        <span class="block sm:ml-2 sm:inline">{empresa.cif}</span>
+      </p>
+      <ul class="flex items-center gap-5">
+        {redes.map((r) => (
+          <li>
+            <a href={r.href} class="block text-white/70 transition-colors hover:text-[#EF5F17] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              <Fragment set:html={r.icono} />
+              <span class="sr-only">{r.nombre}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Marca de esquina, igual que en el formulario */
+  .mapa::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 18px;
+    height: 18px;
+    border-right: 2px solid #ef5f17;
+    border-bottom: 2px solid #ef5f17;
+    pointer-events: none;
+  }
+</style>
